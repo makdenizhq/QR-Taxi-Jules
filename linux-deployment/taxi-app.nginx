@@ -1,0 +1,31 @@
+server {
+    listen 80;
+    # Domain adınız varsa buraya yazın, yoksa IP adresi kalsın veya _ (catch-all) kullanın
+    server_name _;
+
+    # Frontend (React Build Dosyaları)
+    location / {
+        root /var/www/taxi-app/client/dist;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Backend API (Reverse Proxy)
+    location /api/ {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Socket.io (WebSocket)
+    location /socket.io/ {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+    }
+}

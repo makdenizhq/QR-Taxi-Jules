@@ -1,0 +1,6 @@
+# This file lists dependencies for the Python verification/testing scripts.
+# The main application is a Node.js app and uses 'package.json'.
+# Main App Dependencies: See server/package.json and client/package.json
+
+playwright>=1.40.0
+pytest

@@ -1,0 +1,17 @@
+[Unit]
+Description=Taxi App Backend Server
+After=network.target
+
+[Service]
+# Kullanıcıyı 'root' veya sunucudaki kullanıcı adınızla değiştirin (örn: ubuntu)
+User=root
+# Proje yolunu sunucudaki gerçek yolla değiştirin
+WorkingDirectory=/var/www/taxi-app/server
+ExecStart=/usr/bin/node index.js
+Restart=always
+# Environment variables
+Environment=PORT=3001
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
